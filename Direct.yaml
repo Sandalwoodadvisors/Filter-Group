@@ -2242,7 +2242,6 @@ payload:
   - PROCESS-NAME,LookupViewService
   - PROCESS-NAME,TV
 # China:
-payload:
   - DOMAIN,analytics.strava.com
   - DOMAIN,blzddist1-a.akamaihd.net
   - DOMAIN,cdn.angruo.com
