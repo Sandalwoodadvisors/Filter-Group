@@ -13,6 +13,7 @@ payload:
   - DOMAIN-SUFFIX,zohostatic.in
   - DOMAIN-SUFFIX,zohouniversity.com
   - DOMAIN-SUFFIX,zohowebstatic.com
+  - DOMAIN,mailwsorg.zoho.com
 # Microsoft:
   - DOMAIN,github-cloud.s3.amazonaws.com
   - DOMAIN,vsmarketplacebadge.apphb.com
