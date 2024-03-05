@@ -74,7 +74,6 @@ proxy-groups:
   type: select
   proxies:
     - General
-    - DIRECT
     
 rule-providers:
   Buz:
