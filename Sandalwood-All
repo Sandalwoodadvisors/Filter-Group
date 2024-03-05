@@ -1,0 +1,123 @@
+port: 7890
+socks-port: 7891
+allow-lan: false
+mode: Rule
+log-level: info
+external-controller: 127.0.0.1:9090
+dns:
+  enable: true
+  use-hosts: true
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  fallback:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+    - tls://1.1.1.1:853
+    - tls://1.0.0.1:853
+    - https://1.1.1.1/dns-query
+    - https://1.0.0.1/dns-query
+    - tls://8.8.8.8:853
+    - tls://8.8.4.4:853
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+      - 127.0.0.0/8
+      - 0.0.0.0/8
+      
+proxies:
+- alterId: 0
+  cipher: auto
+  name: Sandalwood_intranet
+  port: '6688'
+  server: 106.55.2.140
+  skip-cert-verify: false
+  tls: false
+  type: vmess
+  uuid: f1d7d754-00af-4b85-882f-01f59f14bac6
+  
+proxy-providers:
+  BYW:
+    type: http
+    url: https://api.v1.mk/sub?target=clash&url=https%3A%2F%2Fsub.sayyaao.cn%2Fsubscribe%2F326431%2Fn61JOroGo593&insert=false&config=https%3A%2F%2Fraw.githubusercontent.com%2FACL4SSR%2FACL4SSR%2Fmaster%2FClash%2Fconfig%2FACL4SSR_Online_Full_NoAuto.ini&exclude=%F0%9F%87%BA%F0%9F%87%B8US%E4%B8%A8StarLink%E6%98%9F%E9%93%BE%E4%B8%A820x&rename=%60CN%E4%B8%A8%E9%A6%99%E6%B8%AF%E4%B8%A8%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%40HK01%60%60CN%E4%B8%A8%E9%A6%99%E6%B8%AF%40HK%60%60CN%E4%B8%A8%E5%8F%B0%E5%8C%97%40TW%60%60SG%E4%B8%A8%E6%96%B0%E5%8A%A0%E5%9D%A1%40SG%60%60JP%E4%B8%A8%E4%B8%9C%E4%BA%AC%40JP%60%60KR%E4%B8%A8%E9%A6%96%E5%B0%94%E4%B8%A810x%40KR01%60%60KR%E4%B8%A8%E9%A6%96%E5%B0%94%E4%B8%A8%E5%AE%B6%E5%AE%BD%40KR02%60%60US%E4%B8%A8%E8%8A%9D%E5%8A%A0%E5%93%A5%40US01%60%60US%E4%B8%A8%E6%B4%9B%E6%9D%89%E7%9F%B6%40US02%60%60GB%E4%B8%A8%E4%BC%A6%E6%95%A6%40GB01%60%60DE%E4%B8%A8%E6%B3%95%E5%85%B0%E5%85%8B%E7%A6%8F%40DE01%60%60FR%E4%B8%A8%E5%B7%B4%E9%BB%8E%40FR01%60&emoji=true&list=false&xudp=false&udp=false&tfo=false&expand=true&scv=false&fdn=false&new_name=true
+    interval: 43200
+    #filter: 
+    path: ./profiles/proxies/BYW.yaml
+    health-check:
+      enable: true
+      interval: 600
+      # lazy: true
+      url: http://www.gstatic.com/generate_204
+
+proxy-groups:
+- name: "Node Select"
+  type: select
+  proxies:
+    - General
+  use: 
+    - BYW
+   
+- name: "General"
+  type: url-test
+  url: http://www.gstatic.com/generate_204
+  interval: 1800
+  tolerance: 30
+  use: 
+    - BYW
+
+- name: "MS"
+  type: select
+  proxies:
+    - General
+    - DIRECT
+    
+rule-providers:
+  Buz:
+    behavior: classical
+    format: yaml
+    type: http
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Sandalwoodadvisors/Filter-Group/main/Buz.yaml
+    path: ./Buz.yaml
+    interval: 86400
+
+  Direct:
+    behavior: classical
+    format: yaml
+    type: http
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Sandalwoodadvisors/Filter-Group/main/Direct.yaml
+    path: ./Direct.yaml
+    interval: 86400
+
+  Bypass:
+    behavior: classical
+    format: yaml
+    type: http
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Sandalwoodadvisors/Filter-Group/main/Bypass.yaml
+    path: ./Bypass.yaml
+    interval: 86400
+    
+  MS:
+    behavior: classical
+    format: yaml
+    type: http
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Sandalwoodadvisors/Filter-Group/main/MS.yaml
+    path: ./MS.yaml
+    interval: 86400
+
+rules:
+  - DOMAIN-KEYWORD,internal.kibana,Sandalwood_intranet
+  - DOMAIN-KEYWORD,xiequ,DIRECT
+  - IP-CIDR,10.0.0.0/16,Sandalwood_intranet
+  - RULE-SET,Buz,Node Select
+  - RULE-SET,MS,MS
+  - RULE-SET,Direct,DIRECT
+  - RULE-SET,Bypass,Node Select
+  - IP-CIDR,159.75.231.0/22,DIRECT,no-resolve
+  - GEOIP,CN,DIRECT
+  - MATCH,Node Select
+ 
