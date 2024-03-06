@@ -1,4 +1,9 @@
 payload:
+# Sandalwood
+  - DOMAIN,sandalwoodadvisors.com
+  - DOMAIN,internal.sandalwoodadvisors.com.cn
+  - DOMAIN,portal.sandalwoodadvisors.com.cn
+  - IP-CIDR,159.75.231.0/22,no-resolve
 # Zoho Service
   - DOMAIN-SUFFIX,zoho.com
   - DOMAIN-SUFFIX,zoho.com.au
