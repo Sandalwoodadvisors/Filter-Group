@@ -1,6 +1,4 @@
 payload:
-# Lobe AI
-  - DOMAIN-SUFFIX,zeabur.app
 # Sandalwood
   - DOMAIN,sandalwoodadvisors.com
   - DOMAIN,internal.sandalwoodadvisors.com.cn
