@@ -1,4 +1,6 @@
 payload:
+# AI
+  - DOMAIN,test.leosai.x10.bz
 # Sandalwood
   - DOMAIN,sandalwoodadvisors.com
   - DOMAIN,internal.sandalwoodadvisors.com.cn
