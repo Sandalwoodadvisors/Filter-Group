@@ -1,6 +1,5 @@
 payload:
 # Lobe
-  - DOMAIN,test.leosai.x10.bz
   - DOMAIN-SUFFIX,zeabur.app
 # Sandalwood
   - DOMAIN,sandalwoodadvisors.com
